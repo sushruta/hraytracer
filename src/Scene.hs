@@ -23,6 +23,4 @@ filterJust :: [Maybe a] -> [a]
 filterJust ls = [x | Just x <- ls]
 
 instance Intersectable Scene where
-  intersect ray (Scene objects _ _) = closestIntersection $ filterJust $ map (intersect ray) objects
-      
-      
+    intersect ray (Scene objects _ _) = closestIntersection $ filterJust $ map (intersect ray) objects

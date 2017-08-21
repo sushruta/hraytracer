@@ -5,8 +5,9 @@ import Intersection
 import Vector3
 import Intersectable
 import Material
+import Vertex
 
-data Primitive = Triangle Vector3 Vector3 Vector3 Material | Sphere Vector3 Double Material deriving (Show, Read, Eq)
+data Primitive = Triangle Vertex Vertex Vertex Material | Sphere Vector3 Double Material deriving (Show, Read, Eq)
 
 type Primitives = [Primitive]
 
