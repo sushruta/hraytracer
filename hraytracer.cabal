@@ -1,0 +1,43 @@
+name:                hraytracer
+version:             0.1.0.0
+-- synopsis:
+-- description:
+homepage:            https://github.com/sushruta/hraytracer#readme
+license:             BSD3
+license-file:        LICENSE
+author:              sashidhar guntury
+maintainer:          sguntury@gmail.com
+copyright:           MIT
+category:            computer graphics
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  -- exposed-modules:     Lib
+  build-depends:       base >= 4.7 && < 5
+                     , groups
+  default-language:    Haskell2010
+
+executable hraytracer-exe
+  hs-source-dirs:      app, src
+  main-is:             Main.hs
+  ghc-options:         -threaded -rtsopts -O -with-rtsopts=-N
+  build-depends:       base
+                     , hraytracer
+                     , groups
+  default-language:    Haskell2010
+
+test-suite hraytracer-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base
+                     , hraytracer
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/sushruta/hraytracer

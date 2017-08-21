@@ -1,3 +1,5 @@
+module Main where
+
 import Object
 import Material
 import Color
