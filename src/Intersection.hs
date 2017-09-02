@@ -5,6 +5,8 @@ import Data.List
 import Vector3
 import Material
 
+type Intersections = [Maybe Intersection]
+
 data Intersection = Intersection Vector3 Material Double deriving (Show, Read, Eq, Ord)
 
 cmpFn :: Intersection -> Intersection -> Ordering

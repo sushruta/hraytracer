@@ -26,7 +26,7 @@ class Matrix m where
   makeRotateY :: Double -> m
   makeRotateZ :: Double -> m
   makeScale :: Double -> Double -> Double -> m
-  makeTranslate :: Double -> Double -> Double -> m``
+  makeTranslate :: Double -> Double -> Double -> m
 
 setMatrix34 ax bx cx dx ay by cy dy az bz cz dz = do
   let av = Vector3 ax ay az

@@ -11,6 +11,7 @@ type Objects = [Object]
 data Object = MeshObject Vertices Primitives deriving (Show, Read)
 
 instance Intersectable Object where
+  hitDistance ray (MeshObject v p) = Nothing
   intersect ray (MeshObject v p) = Nothing
 
 makeBox :: Double -> Double -> Double -> Material -> Object
