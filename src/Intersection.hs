@@ -15,6 +15,7 @@ cmpFn (Intersection _ _ d1) (Intersection _ _ d2)
   | d1 > d2  = GT
   | d1 == d2 = EQ
 
+closestIntersection :: [Intersection] -> Maybe Intersection
 closestIntersection [] = Nothing
 closestIntersection [intersection] = Just intersection
 closestIntersection intersections = do

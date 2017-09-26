@@ -5,14 +5,18 @@ import Vertex
 import Primitive
 import Material
 import Intersectable
+import Intersection
+import Util
 
 type Objects = [Object]
 
-data Object = MeshObject Vertices Primitives deriving (Show, Read)
+data Object = MeshObject Vertices Primitives | PrimitiveList [Primitive] deriving (Show, Read)
 
 instance Intersectable Object where
   hitDistance ray (MeshObject v p) = Nothing
   intersect ray (MeshObject v p) = Nothing
+  intersect ray (PrimitiveList []) = Nothing
+  intersect ray (PrimitiveList primitives) = closestIntersection $ filterJust $ map (intersect ray) primitives
 
 makeBox :: Double -> Double -> Double -> Material -> Object
 makeBox x y z mtl = do

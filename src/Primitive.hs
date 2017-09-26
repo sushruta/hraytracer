@@ -17,7 +17,7 @@ instance Intersectable Primitive where
   intersect ray (Triangle v1 v2 v3 mtl) = Nothing
   intersect (Ray o ud) (Sphere c r mtl) = do
     case hitDistance (Ray o ud) (Sphere c r mtl) of
-      Just t -> Just $ Intersection (o + scale (normalize ud) t) mtl t
+      Just t -> Just $ Intersection (o + (scale (normalize ud) t)) mtl t
       Nothing -> Nothing
 
   hitDistance ray (Triangle v1 v2 v3 mtl) = Nothing

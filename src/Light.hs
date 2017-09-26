@@ -1,5 +1,6 @@
 module Light where
 
+import Vector3
 import Color
 
 type Lights = [Light]
