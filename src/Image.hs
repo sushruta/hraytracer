@@ -29,14 +29,12 @@ generateRandomImage w h rs =
     mat = Repa.fromUnboxed (Z:.w:.h:.channels) (toWord8Vector (genNumbers (w*h*channels) rs))
     imgFn (Z:.i:.j) = (mat ! (Z:.i:.j:.0), mat ! (Z:.i:.j:.1), mat ! (Z:.i:.j:.2))
 
+saveAsBmpImage :: Int -> Int -> Array D DIM2 Color -> String -> IO ()
+saveAsBmpImage w h img filename = do
+  -- invert the image because that's how bmp stores it :shrug:
+  let bimg = fromFunction (Z:.h:.w) (\(Z:.i:.j) -> img ! (Z:.(h - i - 1):.j))
+  BMP.writeImageToBMP filename (computeS bimg)
+
 generateBlankImage :: Int -> Int -> Array D DIM2 Color
 generateBlankImage w h =
     fromFunction (Z:.h:.w) (\(Z:.i:.j) -> (0, 0, 0))
-
-gradientImage :: Int -> Int -> Camera -> Array D DIM2 Color
-gradientImage width height camera = do
-    Repa.fromFunction (Z:.width:.height) colorFn
-  where
-    colorFn (Z:.i:.j) = asColorFn (\v -> v + 0.5) offsets
-      where
-        offsets = pixelToOffset i j camera

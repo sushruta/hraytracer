@@ -33,19 +33,12 @@ lookAt eye target up = do
   let res = (256, 256)
   Camera res mat 0.0 0.0
 
-pixelToOffset :: Int -> Int -> Camera -> Vector3
-pixelToOffset x y (Camera (xres, yres) mat fov ar) = do
-  let u = ((fromIntegral x) / (fromIntegral (xres - 1))) - 0.5
-  let v = ((fromIntegral y) / (fromIntegral (yres - 1))) - 0.5
-  let w = 2 * ar * (tan (fov / 2))
-  Vector3 u v w
-
 pixelToPoint :: Int -> Int -> Camera -> Vector3
 pixelToPoint x y (Camera (xres, yres) (Matrix34 right up back _) fov ar) = do
-  let u = ((fromIntegral x) / (fromIntegral (xres - 1))) - 0.5
-  let v = ((fromIntegral y) / (fromIntegral (yres - 1))) - 0.5
-  let w = (-2) * (tan (fov / 2))
-  (scale right (ar * u)) + (scale up v) + (scale back w)
+  let u = (2.0 * (((fromIntegral x) + 0.5) / (fromIntegral xres)) - 1.0) * (tan (fov / 2.0)) * ar
+  let v = (1.0 - 2.0 * (((fromIntegral y) + 0.5) / (fromIntegral yres))) * (tan (fov / 2.0))
+  let w = (-1.0)
+  (scale right u) + (scale up v) + (scale back w)
 
 render :: Camera -> Scene -> Array D DIM2 (Maybe Intersection)
 render (Camera (xres, yres) (Matrix34 right up back eye) fov ar) scene =
@@ -55,8 +48,8 @@ render (Camera (xres, yres) (Matrix34 right up back eye) fov ar) scene =
 
 generateRay :: Camera -> Vector3 -> Int -> Int -> Array D DIM2 Ray
 generateRay camera eye width height =
-    Repa.fromFunction (Z:.width:.height) rayFn
+    Repa.fromFunction (Z:.height:.width) rayFn
   where
     rayFn (Z:.i:.j) = Ray eye (target - eye)
       where
-        target = pixelToPoint i j camera
+        target = pixelToPoint j i camera
