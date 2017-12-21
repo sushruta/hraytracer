@@ -18,3 +18,11 @@ cabal.sandbox.config
 .stack-work/
 cabal.project.local
 .HTF/
+
+# images. let's remove this in future though ...
+*.bmp
+*.png
+*.jpg
+*.jpeg
+*.pgm
+*.ppm

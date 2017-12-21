@@ -26,6 +26,7 @@ class Matrix m where
   makeRotateY :: Double -> m
   makeRotateZ :: Double -> m
   makeScale :: Double -> Double -> Double -> m
+  makeTranslate :: Double -> Double -> Double -> m
 
 setMatrix34 ax bx cx dx ay by cy dy az bz cz dz = do
   let av = Vector3 ax ay az
@@ -102,4 +103,4 @@ instance Matrix Matrix34 where
 
   makeScale sx sy sz = Matrix34 (scale xaxis sx) (scale yaxis sy) (scale zaxis sz) origin
 
-  
+  makeTranslate tx ty tz = Matrix34 xaxis yaxis zaxis (Vector3 tx ty tz)

@@ -1,6 +1,6 @@
 module Vector3 where
 
-import Data.Monoid
+-- import Data.Monoid
 import Data.Group
 
 class (Num a) => Vector a where

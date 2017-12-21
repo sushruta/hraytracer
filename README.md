@@ -1,2 +1,1 @@
 # hraytracer
-raytracer in haskell

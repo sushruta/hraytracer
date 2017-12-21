@@ -5,6 +5,8 @@ import Intersectable
 import Intersection
 import Object
 import Light
+import Ray
+import Util
 
 type SkyColor = Color
 
@@ -19,10 +21,6 @@ addLight (Scene objects lights skyColor) light = Scene objects (lights ++ [light
 addSkyColor :: Scene -> Color -> Scene
 addSkyColor (Scene objects lights skyColor) sc = Scene objects lights sc
 
-filterJust :: [Maybe a] -> [a]
-filterJust ls = [x | Just x <- ls]
-
 instance Intersectable Scene where
-  intersect ray (Scene objects _ _) = closestIntersection $ filterJust $ map (intersect ray) objects
-      
-      
+    intersect ray (Scene objects _ _) = closestIntersection $ filterJust $ map (intersect ray) objects
+    hitDistance (Ray o ud) scene = Nothing
